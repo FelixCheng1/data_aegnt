@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+# 本地配置，不入库
+conf/app_config.yaml
+# 日志
+logs/
