@@ -4,6 +4,7 @@ from app.models.mysql.column_info_mysql import ColumnInfoMySQL
 from app.models.mysql.column_metric_mysql import ColumnMetricMySQL
 from app.models.mysql.metric_info_mysql import MetricInfoMySQL
 from app.models.mysql.table_info_mysql import TableInfoMySQL
+from sqlalchemy import delete
 
 """
 用于操作meta库的持久层
@@ -28,3 +29,10 @@ class MetaMysqlRepository:
     # 向column-metric表中添加多条数据
     def save_column_metrics(self, column_metrics: list[ColumnMetricMySQL]):
         self.session.add_all(column_metrics)
+
+    # 清空meta库中的所有数据
+    async def clear_meta_data(self):
+        await self.session.execute(delete(ColumnMetricMySQL))
+        await self.session.execute(delete(ColumnInfoMySQL))
+        await self.session.execute(delete(MetricInfoMySQL))
+        await self.session.execute(delete(TableInfoMySQL))

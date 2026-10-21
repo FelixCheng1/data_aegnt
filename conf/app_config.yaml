@@ -1,0 +1,50 @@
+# 日志配置
+logging:
+  file:
+    enable: true
+    level: INFO
+    path: logs
+    rotation: "10 MB"
+    retention: "7 days"
+  console:
+    enable: true
+    level: INFO
+
+# 数据库meta的配置
+db_meta:
+  host: ${oc.env:DB_META_HOST}
+  port: 3306
+  user: ${oc.env:DB_META_USER}
+  password: ${oc.env:DB_META_PASSWORD}
+  database: meta2
+
+# 数据库dw的配置
+db_dw:
+  host: ${oc.env:DB_DW_HOST}
+  port: 3306
+  user: ${oc.env:DB_DW_USER}
+  password: ${oc.env:DB_DW_PASSWORD}
+  database: dw2
+
+# qdrant的配置
+qdrant:
+  host: ${oc.env:QDRANT_HOST}
+  port: 6333
+  embedding_size: 1024
+
+# embedding的配置
+embedding:
+  host: ${oc.env:EMBEDDING_HOST}
+  port: 8081
+  model: BAAI/bge-large-zh-v1.5
+
+# es的配置
+es:
+  host: ${oc.env:ES_HOST}
+  port: 9200
+  index_name: data_agent
+
+# llm的配置
+llm:
+  model_name: deepseek-chat
+  api_key: ${oc.env:LLM_API_KEY}

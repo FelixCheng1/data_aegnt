@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 from omegaconf import OmegaConf
+from dotenv import load_dotenv
 
 # ======日志配置类型=========
 # 定义数据的模型
@@ -79,7 +80,9 @@ class AppConfig:
     llm: LLMConfig
 
 # yaml配置路径
-_yaml_path = Path(__file__).parents[2] / "conf" / "app_config.yaml"
+_project_root = Path(__file__).parents[2]
+load_dotenv(_project_root / ".env", override=False, interpolate=False)
+_yaml_path = _project_root / "conf" / "app_config.yaml"
 
 # 加载yaml配置文件
 _yaml_data = OmegaConf.load(_yaml_path)
@@ -89,5 +92,5 @@ app_config: AppConfig = OmegaConf.to_object(OmegaConf.merge(AppConfig, _yaml_dat
 
 if __name__ == "__main__":
     # 打印加载的配置
-    print(app_config, type(app_config))
+    print("Configuration loaded successfully")
     print(app_config.logging.file.level)
