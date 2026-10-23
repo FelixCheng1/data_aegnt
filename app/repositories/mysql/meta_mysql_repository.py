@@ -4,7 +4,7 @@ from app.models.mysql.column_info_mysql import ColumnInfoMySQL
 from app.models.mysql.column_metric_mysql import ColumnMetricMySQL
 from app.models.mysql.metric_info_mysql import MetricInfoMySQL
 from app.models.mysql.table_info_mysql import TableInfoMySQL
-from sqlalchemy import delete
+from sqlalchemy import Select, delete
 
 """
 用于操作meta库的持久层
@@ -36,3 +36,20 @@ class MetaMysqlRepository:
         await self.session.execute(delete(ColumnInfoMySQL))
         await self.session.execute(delete(MetricInfoMySQL))
         await self.session.execute(delete(TableInfoMySQL))
+
+    # 查询指定字段id的字段信息
+    async def get_column_info_by_id(self, column_id:str) -> ColumnInfoMySQL:
+        return await self.session.get(ColumnInfoMySQL, column_id)
+
+    # 查询指定表的主键和外键字段信息列表
+    async def get_key_column_infos(self, table_id:str) -> list[ColumnInfoMySQL]:
+        result = await self.session.execute(
+            Select(ColumnInfoMySQL)
+            .where(ColumnInfoMySQL.table_id==table_id)
+            .where(ColumnInfoMySQL.role.in_(["primary_key","foreign_key"]))
+        )
+        return result.scalars().all()
+
+    # 根据表id查询到meta得到表信息
+    async def get_table_info_by_id(self,table_id:str) -> TableInfoMySQL:
+        return await self.session.get(TableInfoMySQL, table_id)

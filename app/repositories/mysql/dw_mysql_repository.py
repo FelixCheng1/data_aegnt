@@ -21,6 +21,12 @@ class DwMysqlRepository:
         result = await self.session.execute(text(sql))
         return result.scalars().all()
 
+    async def get_db_info(self) -> dict[str, str]:
+        result = await self.session.execute(text("select version()"))
+        version = result.scalar()
+        dialect = self.session.get_bind().dialect.name
+        return {"version":version, "dialect":dialect}
+    
 if __name__ == "__main__":
     import asyncio
     from app.clients.mysql_client_manager import dw_mysql_client_manager

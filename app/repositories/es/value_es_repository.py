@@ -22,10 +22,10 @@ class ValueESRepository:
     }
 
     def __init__(self, client: AsyncElasticsearch):
-        self.clinet = client
+        self.client = client
 
     async def create_index(self):
-        client = self.clinet
+        client = self.client
         index_name = self.index_name
         # 创建索引
         if await client.indices.exists(index=index_name):
@@ -57,4 +57,16 @@ class ValueESRepository:
                 )
                 operations.append(value_info)
             # 批量插入多个文档
-            await self.clinet.bulk(operations=operations)
+            await self.client.bulk(operations=operations)
+
+    # 根据关键词来查询
+    async def search(self, keyword) -> list[ValueInfoES]:
+        result = await self.client.search(
+            index=self.index_name,
+            query={
+                "match":{
+                    "value":keyword
+                }
+            }
+        )
+        return [ValueInfoES(**item["_source"]) for item in result["hits"]["hits"]]

@@ -54,3 +54,13 @@ class MetricQdrantRepository:
                 ]
             )
 
+    # 搜索
+    async def search(self, keywords_vector:list[float]) -> list[MetricInfoQdrant]:
+        # 查询匹配
+        result = await self.client.query_points(
+                    collection_name=self.collection_name,
+                    query=keywords_vector,
+                    score_threshold=0.6 # 向量相似度阈值，需要反复测试来得到
+                )
+        return [MetricInfoQdrant(**point.payload) for point in result.points]
+

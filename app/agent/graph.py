@@ -75,7 +75,6 @@ state_graph.add_edge("execute_sql",END)
 # 编译
 compiled_graph = state_graph.compile()
 
-display(Image(compiled_graph.get_graph().draw_mermaid_png()))
 
 
 if __name__ == '__main__':
@@ -96,8 +95,7 @@ if __name__ == '__main__':
             assert dw_mysql_client_manager.session_factory
             async with (
                 dw_mysql_client_manager.session_factory() as dw_session,
-                meta_mysql_client_manager.session_factory() as meta_session
-
+                meta_mysql_client_manager.session_factory() as meta_session,
             ):
                 meta_session: AsyncSession
 
@@ -107,7 +105,7 @@ if __name__ == '__main__':
                 - 2025年各地区平均销售额
                 - 各个地区iPhone去年卖了多少钱
                 """
-                state = DataAgentState(query="各个地区iPhone去年卖了多少钱", fail_count=0)
+                state = DataAgentState(query="iPhone去年卖了多少钱")
                 # 创建context对象
                 context = DataAgentContext(
                     dw_mysql_repo=DwMysqlRepository(dw_session),
@@ -135,9 +133,7 @@ if __name__ == '__main__':
             await meta_mysql_client_manager.close()
             await es_client_manager.close()
             await qdrant_client_manager.close()
-
-
-
+            await embedding_client_manager.close()
 
 
     asyncio.run(test())

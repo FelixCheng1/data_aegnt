@@ -12,5 +12,5 @@ async def execute_sql(state:DataAgentState, runtime: Runtime[DataAgentContext]):
         # 处理
         return {}
     except Exception as e:
-        logger.error("执行sql错误")
+        logger.error(f"执行sql错误：{str(e)}")
         raise
