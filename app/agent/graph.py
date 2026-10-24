@@ -28,7 +28,7 @@ from app.repositories.mysql.dw_mysql_repository import DwMysqlRepository
 from app.repositories.mysql.meta_mysql_repository import MetaMysqlRepository
 from app.repositories.qdrant.column_qdrant_repository import ColumnQdrantRepository
 from app.repositories.qdrant.metric_qdrant_repository import MetricQdrantRepository
-from loguru import logger
+from app.core.log import logger
 
 state_graph = StateGraph(
     state_schema=DataAgentState,
@@ -105,7 +105,7 @@ if __name__ == '__main__':
                 - 2025年各地区平均销售额
                 - 各个地区iPhone去年卖了多少钱
                 """
-                state = DataAgentState(query="iPhone去年卖了多少钱")
+                state = DataAgentState(query="各个地区销售总额", fail_count=0)
                 # 创建context对象
                 context = DataAgentContext(
                     dw_mysql_repo=DwMysqlRepository(dw_session),

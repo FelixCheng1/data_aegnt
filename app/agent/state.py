@@ -48,3 +48,6 @@ class DataAgentState(TypedDict):
      metric_infos: list[MetricInfoState] # 指标信息状态对象列表
      date_info: DateInfoState # 当前日期时间信息状态对象
      db_info: DBInfoState # 数据库信息状态对象
+     sql: str # 生成的SQL
+     fail_count: int # 校验失败的次数
+     error: str     # 生成SQL时的错误信息

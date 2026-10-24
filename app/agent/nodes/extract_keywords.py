@@ -2,7 +2,7 @@ from jieba.analyse import extract_tags
 from langgraph.runtime import Runtime
 from app.agent.context import DataAgentContext
 from app.agent.state import DataAgentState
-from loguru import logger
+from app.core.log import logger
 
 
 async def extract_keywords(state:DataAgentState, runtime: Runtime[DataAgentContext]):

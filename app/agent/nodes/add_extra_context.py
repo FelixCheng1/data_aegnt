@@ -3,7 +3,7 @@ from datetime import datetime
 from langgraph.runtime import Runtime
 from app.agent.context import DataAgentContext
 from app.agent.state import DBInfoState, DataAgentState, DateInfoState
-from loguru import logger
+from app.core.log import logger
 
 
 async def add_extra_context(state:DataAgentState, runtime: Runtime[DataAgentContext]):

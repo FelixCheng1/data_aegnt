@@ -3,7 +3,7 @@ import yaml
 from app.agent.llm import llm
 from app.agent.context import DataAgentContext
 from app.agent.state import DataAgentState
-from loguru import logger
+from app.core.log import logger
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 
@@ -49,5 +49,5 @@ async def filter_metric(state:DataAgentState, runtime: Runtime[DataAgentContext]
         # 3. 返回过滤后metric_infos
         return {"metric_infos":metric_infos}
     except Exception as e:
-        logger.error("过滤指标错误")
+        logger.error(f"过滤指标错误：{str(e)}")
         raise

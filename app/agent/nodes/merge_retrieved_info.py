@@ -1,7 +1,7 @@
 from langgraph.runtime import Runtime
 from app.agent.context import DataAgentContext
 from app.agent.state import ColumnInfoState, DataAgentState, MetricInfoState, TableInfoState
-from loguru import logger
+from app.core.log import logger
 
 from app.models.mysql.column_info_mysql import ColumnInfoMySQL
 from app.models.mysql.table_info_mysql import TableInfoMySQL

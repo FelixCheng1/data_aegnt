@@ -26,6 +26,15 @@ class DwMysqlRepository:
         version = result.scalar()
         dialect = self.session.get_bind().dialect.name
         return {"version":version, "dialect":dialect}
+
+    async def validate_sql(self, sql:str):
+        await self.session.execute(text(f"explain {sql}"))
+
+    async def execute_sql(self, sql:str):
+        # 执行一条查询sql
+        result = await self.session.execute(text(sql))
+        # return result.mappings().all() # [rowMapping对象] 不能直接序列化
+        return [dict(row) for row in result.mappings().all()]
     
 if __name__ == "__main__":
     import asyncio
