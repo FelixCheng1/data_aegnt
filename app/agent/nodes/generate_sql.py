@@ -11,7 +11,7 @@ from app.prompt.prompt_loader import load_prompt
 # 利用大模型来生成，要交给大模型数据：
 async def generate_sql(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("生成sql")
+    runtime.stream_writer({"stage":"生成sql"})
 
     try:
         query = state["query"]

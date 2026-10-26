@@ -6,7 +6,7 @@ from app.core.log import logger
 
 async def execute_sql(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("执行sql")
+    runtime.stream_writer({"stage":"执行sql"})
 
     try:
         sql = state["sql"]

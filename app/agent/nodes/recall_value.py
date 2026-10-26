@@ -11,7 +11,7 @@ from app.agent.llm import llm
 
 async def recall_value(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("召回字段值")
+    runtime.stream_writer({"stage":"召回字段值"})
 
     try:
         query = state["query"]

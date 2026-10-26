@@ -11,7 +11,7 @@ from app.agent.llm import llm
 
 async def recall_metric(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("召回指标信息")
+    runtime.stream_writer({"stage":"召回指标信息"})
 
     try:
         query = state["query"]

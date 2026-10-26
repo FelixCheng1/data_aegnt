@@ -7,7 +7,7 @@ MAX_FAIL_COUNT = 5
 
 async def validate_sql(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("校验sql")
+    runtime.stream_writer({"stage":"校验sql"})
 
     fail_count = state["fail_count"]
 

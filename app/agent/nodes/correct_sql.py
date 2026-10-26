@@ -12,7 +12,7 @@ from app.prompt.prompt_loader import load_prompt
 
 async def correct_sql(state:DataAgentState, runtime: Runtime[DataAgentContext]):
     # 自定义输出
-    runtime.stream_writer("校正sql")
+    runtime.stream_writer({"stage":"校正sql"})
 
     try:
         query = state["query"]
